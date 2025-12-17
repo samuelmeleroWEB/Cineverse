@@ -1,0 +1,273 @@
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+  color: #f5f5f5;
+  min-height: calc(100vh - 72px - 140px);
+  /*        ^       ^       ^
+            |       |       └≈ altura del footer (ajusta)
+            |       └≈ altura del navbar (el padding-top)
+            └ altura de la ventana */
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+   margin-bottom: 0.2rem; 
+  line-height: 1.1;  
+  margin-top: 3.5rem;
+  text-align: center;
+  background: linear-gradient(60deg,rgb(47, 191, 248) 10%, rgb(58, 32, 204) 30%, rgb(179, 146, 255) 87%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.subtitle{
+   font-size: 1.05rem;
+  font-weight: 300;
+  margin-bottom: 3.5rem;
+ 
+  text-align: center;
+  color: #afafb3;
+  margin-top: 0;      
+  line-height: 1.2;
+ 
+}
+
+.description {
+  font-size: 0.9rem;
+  font-weight: 200;
+  margin-bottom: 1.5rem;
+}
+
+/* GRID REAL */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  height: 600px;
+  background: #101015;
+  border-radius: 12px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.posterWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3; /* todas tendrán forma de póster vertical */
+  overflow: hidden;
+  border-radius: 10px;
+  background: #0b0b15; /* color de fondo por si no carga la imagen */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Imagen */
+.poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+
+.poster:hover {
+  transform: scale(1.03);
+}
+
+.movieTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: "MiFuenteCine", sans-serif;
+  letter-spacing: 2px;
+}
+
+.meta {
+  font-size: 0.85rem;
+  color: #b0b0b0;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #b0b0b0;
+}
+
+/* ========== SKELETON ========== */
+
+/* Contenedor de skeletons: 3 por fila cuando quepan */
+.skeletonGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;   
+  max-width: 1100px;         
+  margin: 0 auto;
+}
+
+/* Card del skeleton: MISMAS MEDIDAS que la card real */
+.skeletonCard {
+  width: 340px;             
+  height: 600px;            
+  background: #101015;
+  border-radius: 12px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Poster “apagado” con shimmer */
+.skelPoster,
+.skelTitle,
+.skelMeta {
+  border-radius: 6px;
+  background: linear-gradient(
+    100deg,
+    #1b1b20 20%,
+    #2f2f38 40%,
+    #1b1b20 60%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 2.4s linear infinite;
+  will-change: background-position;
+}
+
+/* Parte de arriba: póster vertical ocupando casi toda la card */
+.skelPoster {
+  width: 100%;
+  height: 460px;  
+  margin-bottom: 0.6rem;
+}
+
+.skelTitle {
+  width: 80%;
+  height: 24px;
+  margin-bottom: 0.4rem;
+}
+
+/* Línea de meta / info extra */
+.skelMeta {
+  width: 60%;
+  height: 14px;
+}
+
+/* Animación shimmer */
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* === BUSCADOR EN CARTELERA === */
+
+.searchBarRow {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 0 1.2rem;
+}
+
+.searchForm {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Input de búsqueda */
+.searchInput {
+  min-width: 230px;
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.55);
+  color: #f5f5f5;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.searchInput::placeholder {
+  color: #9a9a9a;
+}
+
+.searchInput:focus {
+  border-color: #00c6ff;
+  background: rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0 0 2px rgba(0, 198, 255, 0.25);
+}
+
+/* Botón Buscar */
+.searchButton {
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #927be4, #2f13d1);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.searchButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 198, 255, 0.6);
+}
+
+.searchButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 198, 255, 0.5);
+}
+
+/* Botón limpiar (X) */
+.clearButton {
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: #f5f5f5;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.clearButton:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .searchBarRow {
+    justify-content: center;
+  }
+
+  .searchForm {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .searchInput {
+    min-width: 180px;
+    flex: 1;
+  }
+}
