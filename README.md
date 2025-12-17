@@ -1,75 +1,156 @@
-# React + TypeScript + Vite
+# 🎬 CineVerse – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación frontend de **CineVerse**, una plataforma web para la gestión y reserva de entradas de cine con compra de menús de comida y panel de administración.
 
-Currently, two official plugins are available:
+Este repositorio contiene **únicamente el frontend**, desarrollado con React y TypeScript.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🧑‍💻 Descripción general
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+El frontend de CineVerse permite a los usuarios:
 
-Note: This will impact Vite dev & build performances.
+- Navegar libremente por la web (sin necesidad de registro).
+- Consultar cartelera, sesiones y detalles de películas.
+- Seleccionar butacas y añadir entradas al carrito.
+- Añadir menús de comida asociados a la compra de entradas.
+- Finalizar la compra únicamente si el usuario ha iniciado sesión.
+- Acceder a un panel de administración en función del rol.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ✨ Funcionalidades principales
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 🌐 Parte pública (usuarios)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+#### Home
+- Navbar fijo presente en toda la aplicación.
+- Carrusel principal (Swiper) con las **películas destacadas del mes (MVP)**:
+  - Reproducción automática cada 7 segundos.
+  - Controles manuales (siguiente / anterior).
+  - Botón **Ver detalles** que redirige al detalle de la película.
+- Carrusel de fechas:
+  - Muestra las sesiones disponibles para cada día.
+  - Cada tarjeta indica horario y sala.
+  - Click en la tarjeta → Detalle de la película.
+  - Click en el horario → Selección de butacas.
+- Footer fijo con formulario de newsletter (no funcional actualmente).
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+#### Cartelera
+- Listado completo de las películas activas.
+- Acceso al detalle de cada película.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+#### Detalle de película
+- Información detallada: sinopsis, género, edad recomendada.
+- Carrusel de sesiones por fecha.
+- Botones:
+  - Ver trailer (no funcional).
+  - Comprar entradas (no funcional).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+#### Selección de butacas
+- Visualización de asientos disponibles y ocupados.
+- Selección múltiple de butacas.
+- Botón **Confirm booking** que añade las entradas al carrito.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+#### Carrito
+- Visualización de entradas y menús añadidos.
+- Botón **Finalizar compra**:
+  - Solo disponible si el usuario ha iniciado sesión.
+  - Si no está autenticado, se muestra un mensaje de error.
+
+#### Menús de comida
+- Cuatro menús disponibles:
+  - Combo Familiar
+  - Combo Clásico
+  - Combo Dulce
+  - Combo Premium
+- Los menús solo pueden comprarse si hay entradas en el carrito.
+- Enlace a la sección de promociones.
+
+#### Promociones
+- Página informativa con promociones activas.
+- Sección Club CineVerse (no funcional).
+
+---
+
+### 🔐 Autenticación
+
+- Registro mediante email y contraseña.
+- Inicio de sesión mediante email y contraseña.
+- Tras iniciar sesión:
+  - Menú desplegable con:
+    - **Mis reservas**.
+    - **Mis datos** (email y contraseña enmascarada).
+- Los usuarios no autenticados no pueden finalizar compras.
+
+---
+
+### 🛠 Panel de administración (rol Admin)
+
+Acceso exclusivo para usuarios con rol **admin** mediante la ruta `/admin`.
+
+Funciones disponibles:
+- Dashboard con métricas generales del cine.
+- Gestión de películas (crear, editar, eliminar).
+- Gestión de sesiones.
+- Gestión de salas.
+- Gestión de usuarios (visualización).
+- Gestión de películas MVP para el carrusel principal.
+
+---
+
+## 🧱 Tecnologías utilizadas
+
+- **Vite**
+- **React**
+- **TypeScript**
+- **Zustand** (estado global)
+- **React Router**
+- **Swiper**
+- **react-icons**
+- **react-hot-toast**
+- CSS Modules / estilos personalizados
+
+---
+
+## Inicialización del proyecto
+
+### Requisitos
+
+- Node.js v18+
+- npm v9+
+
+### Instalación
+
+1. **Clonar el repositorio**
+
+   ```bash
+   git clone https://github.com/samuelmeleroWEB/frontendCineverse.git
+   cd frontendCineverse
+   ```
+
+2. **Instalar dependencias**
+
+   ```bash
+   npm install
+   ```
+
+3. **Run Development Server**
+   ```bash
+   npm run dev
+   ```
+   Abre [http://localhost:5173](http://localhost:5173) para verlo en el navegador.
+
+---
+## 📁 Estructura del proyecto
+
+```text
+src/
+├── assets/
+├── components/
+├── pages/
+├── router/
+├── services/        # Llamadas a la API
+├── store/           # Zustand
+├── main.tsx
+└── App.tsx
