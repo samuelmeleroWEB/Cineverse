@@ -192,7 +192,7 @@ export function MvpMovies() {
         ) : (
           <div className={estilos.grid}>
             {otherMovies.map((movie) => {
-              const hasBanner = !!movie.mvpImageUrl;
+              const hasBanner = !!movie.mvpImageUrl; // comrpobamos si existe esa propiedad y guardamos true o false
               const isDisabled = !hasBanner;
 
               return (

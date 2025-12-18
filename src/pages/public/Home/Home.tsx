@@ -43,7 +43,7 @@ function groupSessionsByMovie(sessions: any[]) {
   return Object.values(map); // [ { movie, sessions: [...] }, ... ]
 }
 
-// genera N días a partir de hoy
+// genera N días a partir de hoy, esta función la usamos para generar los días en el carrusel
 function generateDays(count: number = 10): any[] {
   const today = new Date();
   const days: any[] = [];
@@ -72,15 +72,13 @@ function generateDays(count: number = 10): any[] {
     );
 
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); //sumamos 1 para que el mes este correcto
     const day = String(date.getDate()).padStart(2, "0");
-
     const isoDate = `${year}-${month}-${day}`; // para el backend
+    const weekday = weekdayNames[date.getDay()]; // aqui nos da el día de la semana
+    const monthLabel = monthNames[date.getMonth()]; // aqui nos da el nombre mes exacto
 
-    const weekday = weekdayNames[date.getDay()];
-    const monthLabel = monthNames[date.getMonth()];
-
-    const label = i === 0 ? "Hoy" : `${weekday} ${day} ${monthLabel}`;
+    const label = i === 0 ? "Hoy" : `${weekday} ${day} ${monthLabel}`; // si i es igual a cero pondrá hoy 
 
     days.push({
       id: `d${i + 1}`,

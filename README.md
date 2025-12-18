@@ -166,5 +166,11 @@ src/
 ### Diagrama de flujo
 ![Diagrama de flujo](docs/diagramadeflujo.png)
 
-### Diagrama de casos de uso
+### Diagrama de casos de uso(visitante)
 ![Diagrama de casos de uso](docs/casosdeusovisitante.png)
+
+### Diagrama de casos de uso(usuario registrado)
+![Diagrama de casos de uso](docs/casosdeusouserregistrado.png)
+
+### Diagrama de casos de uso(admin)
+![Diagrama de casos de uso](docs/casosdeusoadmin.png)

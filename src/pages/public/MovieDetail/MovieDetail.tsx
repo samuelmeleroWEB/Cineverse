@@ -5,7 +5,7 @@ import { getMovieById } from "../../../services/movies.services";
 import { getSessionsByMovie } from "../../../services/sessions.services";
 import DayCarousel from "../../../components/DayCarousel/DayCarousel";
 
-// genera N días a partir de hoy 
+// genera N días a partir de hoy , utils? añadir
 function generateDays(count: number = 10) {
   const today = new Date();
   const days: any[] = [];
@@ -65,11 +65,12 @@ export default function MovieDetail() {
   const [selectedDayId, setSelectedDayId] = useState("d1");
 
   useEffect(() => {
+    // definimos funcion para obtener detalle pelicula y sus sesiones
     async function load() {
       try {
         if (!id) return;
         setLoading(true);
-        const [movieData, sessionData] = await Promise.all([
+        const [movieData, sessionData] = await Promise.all([ //  lo usamos para ejecutar las dos peticiones a la vez en pararelo
           getMovieById(id),
           getSessionsByMovie(id),
         ]);
@@ -93,6 +94,7 @@ export default function MovieDetail() {
         setLoading(false);
       }
     }
+    // aqui ejecutamos la funcion para obtener lo mismo
     load();
   }, [id]);
 

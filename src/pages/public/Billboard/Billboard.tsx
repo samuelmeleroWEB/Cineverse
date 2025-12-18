@@ -37,12 +37,11 @@ export default function Billboard() {
     load();
   }, []);
 
-  // 🔍 filtrar películas por texto (título, género, edad)
-  const filteredMovies = movies.filter((m) => {
-    if (!searchTerm.trim()) return true;
+  //  filtrar películas por texto (título, género, edad)
+  const filteredMovies = movies.filter((m) => { //recorremos movies
+    if (!searchTerm.trim()) return true; // evitamos que busque si se ponen espacios vacios
 
     const term = searchTerm.toLowerCase();
-
     const title = m.title.toLowerCase();
     const genre = m.genre?.toLowerCase?.() ?? "";
     const ageRating = m.ageRating?.toLowerCase?.() ?? "";
@@ -53,7 +52,7 @@ export default function Billboard() {
       ageRating.includes(term)
     );
   });
-
+//   cuando introducimos algo en el filtro de busqueda y pulsamos
   const handleSearchSubmit = (e: FormEvent) => {
     e.preventDefault();
     setSearchTerm(inputTerm);
@@ -83,7 +82,7 @@ export default function Billboard() {
         </div>
       ) : (
         <>
-          {/* 🔍 Barra de búsqueda */}
+          {/*  Barra de búsqueda */}
           <div className={styles.searchBarRow}>
             <form
               onSubmit={handleSearchSubmit}

@@ -9,6 +9,12 @@ import { HiOutlineMenuAlt3, HiOutlineX } from "react-icons/hi";
 
 type AuthMode = "login" | "register";
 type PanelMode = "nav" | "user" | null;
+const NAV_LINKS = [
+  { to: "/", label: "INICIO" },
+  { to: "/billboard", label: "CARTELERA" },
+  { to: "/promotions", label: "PROMOCIONES" },
+  { to: "/menus", label: "MENUS" },
+];
 
 export default function Navbar() {
   const location = useLocation();
@@ -28,22 +34,12 @@ export default function Navbar() {
 
   const authenticated = !!token;
 
+  // Usamos usememo para memorizar el nombre del usuario que es su correo antes del @. se vuelve a ejecutar cuando cambies el usuario
   const displayName = useMemo(() => {
     return user?.name?.split(" ")[0] || (user?.email ? user.email.split("@")[0] : "");
   }, [user]);
 
   const isAdmin = user?.role === "admin";
-
-  const navLinks = useMemo(
-    () => [
-      { to: "/", label: "INICIO" },
-      { to: "/billboard", label: "CARTELERA" },
-      { to: "/promotions", label: "PROMOCIONES" },
-      { to: "/menus", label: "MENUS" },
-    ],
-    []
-  );
-
   // Scroll
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 10);
@@ -118,7 +114,7 @@ export default function Navbar() {
 
         {/* LINKS DESKTOP */}
         <div className={estilos.navLinks}>
-          {navLinks.map((l) => (
+          {NAV_LINKS.map((l) => (
             <Link key={l.to} className={estilos.enlaces} to={l.to}>
               {l.label}
             </Link>
@@ -206,7 +202,7 @@ export default function Navbar() {
 
             {panelMode === "nav" && (
               <nav className={estilos.panelNav}>
-                {navLinks.map((l) => (
+                {NAV_LINKS.map((l) => (
                   <Link key={l.to} to={l.to} className={estilos.panelLink}>
                     {l.label}
                   </Link>

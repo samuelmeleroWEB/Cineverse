@@ -2,19 +2,25 @@ import { useEffect, useState } from "react";
 import styles from "./Users.module.css";
 import { getUsers } from "../../../services/users.services";
 
+interface User {
+  id: string;
+  email: string;       
+  role: string;       
+  createdAt: string;
+}
 export const Users = () => {
   // useState para almacenar usuarios
-  const [users, setUsers] = useState([]);
-  async function obtenerUsers() {
+  const [users, setUsers] = useState<User[]>([]);
+ 
+  useEffect(() => {
+     async function obtenerUsers() {
     const response = await getUsers();
     setUsers(response);
   }
-
-  useEffect(() => {
     obtenerUsers();
   }, []);
 
-  
+
   return (
     <div className={styles.container}>
       <h2 className={styles.heading}>Usuarios</h2>

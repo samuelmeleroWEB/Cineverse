@@ -6,7 +6,7 @@ export interface DayItem {
   id: string;
   label: string;
 }
-
+// Propiedades del componente Daycarousel
 interface DayCarouselProps {
   days: DayItem[];
   selectedDayId: string;
@@ -23,11 +23,9 @@ const DayCarousel: React.FC<DayCarouselProps> = ({
   loading = false,
 }) => {
   const [startIndex, setStartIndex] = useState(0);
-
-  const currentIndex = days.findIndex((d) => d.id === selectedDayId);
-  const endIndex = startIndex + visibleCount;
-  const visibleDays = days.slice(startIndex, endIndex);
-
+  const currentIndex = days.findIndex((d) => d.id === selectedDayId); // buscamos el indice del día actual
+  const endIndex = startIndex + visibleCount; // 
+  const visibleDays = days.slice(startIndex, endIndex); // 
   const ensureVisibleWindow = (targetIndex: number, prevStart: number) => {
     let newStart = prevStart;
 

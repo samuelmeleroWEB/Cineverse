@@ -5,7 +5,7 @@ import styles from "./SessionDetails.module.css";
 import toast from "react-hot-toast";
 import { getSessionById } from "../../../services/sessions.services";
 
-const ROWS = ["A", "B", "C", "D", "E", "F"]; // ajusta a tu sala real
+const ROWS = ["A", "B", "C", "D", "E", "F", "G", "H","I", "J"]; // ajusta según la capacidad de nuestras salas
 const SEATS_PER_ROW = 10;
 
 type SessionData = {
@@ -24,7 +24,7 @@ export default function SessionDetail() {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const addItem = useCartStore((s) => s.addItem);
   const navigate = useNavigate();
-
+// usamos useeffect, para traernos la información de la sesión
   useEffect(() => {
     async function load() {
       try {
