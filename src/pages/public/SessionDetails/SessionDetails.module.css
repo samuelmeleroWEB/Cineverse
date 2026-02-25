@@ -332,3 +332,35 @@
     opacity: 1;
   }
 }
+@media (max-width: 480px) {
+  .seat {
+    width: 28px;
+    height: 28px;
+    font-size: 0.6rem;
+    border-radius: 6px;
+  }
+
+  .row {
+    gap: 0.2rem;
+  }
+
+  .seatsGrid {
+    gap: 0.3rem;
+    min-width: fit-content;
+    margin: 0 auto;
+  }
+
+  .rowLabel {
+    width: 18px;
+    font-size: 0.7rem;
+  }
+
+  .seatsCard {
+    padding: 1rem 0.5rem;
+    overflow-x: auto;
+  }
+
+  .bottomBar {
+    padding: 0.8rem 1rem;
+  }
+}

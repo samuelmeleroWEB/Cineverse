@@ -145,8 +145,7 @@ export default function MovieDetail() {
             />
           </div>
 
-          <button className={styles.primaryBtn}>Comprar entradas</button>
-          <button className={styles.secondaryBtn}>Ver tráiler</button>
+        
         </div>
 
         {/* Columna derecha: info */}

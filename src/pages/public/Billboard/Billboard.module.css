@@ -270,4 +270,16 @@ a {
     min-width: 180px;
     flex: 1;
   }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card {
+    height: auto;
+  }
+
+  .movieTitle {
+    font-size: 1rem;
+  }
 }

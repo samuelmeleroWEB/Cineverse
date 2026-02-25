@@ -218,7 +218,6 @@ export function Home() {
         days={days}
         selectedDayId={selectedDayId}
         onChange={setSelectedDayId}
-        visibleCount={5}
         loading={isLoadingSessions}
       />
 

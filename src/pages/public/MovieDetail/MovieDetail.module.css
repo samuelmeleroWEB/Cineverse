@@ -68,7 +68,7 @@
 .poster {
   display: block;
   width: 100%;
-  height: 370px;
+  height: 570px;
   object-fit: cover;
   transform: scale(1.02);
   transition: transform 0.25s ease;
@@ -76,40 +76,6 @@
 
 .posterWrapper:hover .poster {
   transform: scale(1.06);
-}
-
-.primaryBtn,
-.secondaryBtn {
-  width: 100%;
-  padding: 0.85rem 1rem;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  cursor: pointer;
-  border: 1px solid transparent;
-  transition: background 0.2s ease, transform 0.1s ease, border-color 0.2s ease;
-}
-
-.primaryBtn {
-  background: linear-gradient(135deg, #2563eb, #4f46e5);
-  color: #fff;
-  border-color: #3b82f6;
-}
-
-.primaryBtn:hover {
-  transform: translateY(-1px);
-  background: linear-gradient(135deg, #3b82f6, #6366f1);
-}
-
-.secondaryBtn {
-  background: transparent;
-  color: #e5e7ff;
-  border-color: rgba(229, 231, 255, 0.4);
-}
-
-.secondaryBtn:hover {
-  background: rgba(148, 163, 255, 0.09);
-  transform: translateY(-1px);
 }
 
 /* =========================

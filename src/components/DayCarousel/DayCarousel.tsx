@@ -1,72 +1,74 @@
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./DayCarousel.module.css";
 
 export interface DayItem {
   id: string;
   label: string;
 }
-// Propiedades que recibe el componente Daycarousel
+
 interface DayCarouselProps {
   days: DayItem[];
   selectedDayId: string;
-  onChange: (dayId: string) => void; //función que avisa al padre cuando cambia el día
-  visibleCount?: number; // cuántos días se ven a la vez (por defecto 5)
-  loading?: boolean;     // opcional: desactivar botones mientras carga
+  onChange: (dayId: string) => void;
+  visibleCount?: number;
+  loading?: boolean;
 }
 
 const DayCarousel: React.FC<DayCarouselProps> = ({
   days,
   selectedDayId,
   onChange,
-  visibleCount = 5,
+  visibleCount: visibleCountProp,
   loading = false,
 }) => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const visibleCount = visibleCountProp ?? (windowWidth < 768 ? 3 : 5);
+  
+
   const [startIndex, setStartIndex] = useState(0);
-  const currentIndex = days.findIndex((d) => d.id === selectedDayId); // buscamos el indice del día actual
-  const endIndex = startIndex + visibleCount; //Calcula hasta dónde llega la ventana visible
-  const visibleDays = days.slice(startIndex, endIndex); //Extrae solo los días que se mostrarán
-  const ensureVisibleWindow = (targetIndex: number, prevStart: number) => { //El día seleccionado siempre esté dentro de los días visibles
-    let newStart = prevStart;
+  const currentIndex = days.findIndex((d) => d.id === selectedDayId);
 
-    if (targetIndex < prevStart) {
-      newStart = targetIndex; //El día seleccionado pasa a ser el primero visible
-    } else if (targetIndex >= prevStart + visibleCount) {
-      newStart = targetIndex - visibleCount + 1; //El día seleccionado entra como último visible
-    }
+  const endIndex = startIndex + visibleCount;
+  const visibleDays = days.slice(startIndex, endIndex);
 
-    if (newStart < 0) newStart = 0; //evitamos indices negativos
+  const ensureVisibleWindow = (targetIndex: number) => {
+    const half = Math.floor(visibleCount / 2);
+    let newStart = targetIndex - half;
+    if (newStart < 0) newStart = 0;
     if (newStart > days.length - visibleCount) {
-      newStart = Math.max(days.length - visibleCount, 0);//Si hay menos días que visibleCount, empieza en 0
+      newStart = Math.max(days.length - visibleCount, 0);
     }
-
     return newStart;
   };
-
   const handleNext = () => {
     if (loading) return;
-    if (currentIndex === -1 || currentIndex >= days.length - 1) return; //No avanza si:no hay día seleccionado ,ya estás en el último día
-
+    if (currentIndex === -1 || currentIndex >= days.length - 1) return;
     const newIndex = currentIndex + 1;
     onChange(days[newIndex].id);
-    setStartIndex((prev) => ensureVisibleWindow(newIndex, prev));//Ajusta la ventana visible para incluir el nuevo día
+    setStartIndex(ensureVisibleWindow(newIndex));
   };
 
   const handlePrev = () => {
     if (loading) return;
-    if (currentIndex <= 0) return; //no retrocede si estas en el primer dia o no hay selección valida
-
+    if (currentIndex <= 0) return;
     const newIndex = currentIndex - 1;
-    onChange(days[newIndex].id); //selecciona el dia anterior
-    setStartIndex((prev) => ensureVisibleWindow(newIndex, prev)); //Ajusta la ventana visible para incluir el nuevo día
+    onChange(days[newIndex].id);
+    setStartIndex(ensureVisibleWindow(newIndex));
   };
 
   const handleClickDay = (dayId: string) => {
     if (loading) return;
-    const index = days.findIndex((d) => d.id === dayId);//Obtiene el índice del día clicado
-    onChange(dayId);//Notifica al padre del cambio
-    if (index === -1) return; // proteccion por si el dia no existe
-    setStartIndex((prev) => ensureVisibleWindow(index, prev));
+    const index = days.findIndex((d) => d.id === dayId);
+    onChange(dayId);
+    if (index === -1) return;
+    setStartIndex(ensureVisibleWindow(index));
   };
 
   return (
@@ -83,15 +85,12 @@ const DayCarousel: React.FC<DayCarouselProps> = ({
       <div className={styles.container}>
         {visibleDays.map((day) => {
           const isActive = day.id === selectedDayId;
-
           return (
             <button
               key={day.id}
               type="button"
               onClick={() => handleClickDay(day.id)}
-              className={`${styles.dayButton} ${
-                isActive ? styles.active : ""
-              }`}
+              className={`${styles.dayButton} ${isActive ? styles.active : ""}`}
               disabled={loading}
             >
               {day.label}
@@ -104,7 +103,9 @@ const DayCarousel: React.FC<DayCarouselProps> = ({
         type="button"
         className={styles.arrow}
         onClick={handleNext}
-        disabled={loading || currentIndex === -1 || currentIndex >= days.length - 1}
+        disabled={
+          loading || currentIndex === -1 || currentIndex >= days.length - 1
+        }
       >
         ▶
       </button>
