@@ -1,8 +1,7 @@
-
 import estilos from "./Menus.module.css";
 import { useCartStore } from "../../../store/cart.store";
 import toast from "react-hot-toast";
-
+import { Link } from "react-router-dom";
 const MENUS = [
   {
     id: "combo-familiar",
@@ -15,8 +14,7 @@ const MENUS = [
   {
     id: "combo-clasico",
     name: "Combo Clásico",
-    description:
-      "Palomitas medianas + refresco grande. El clásico del cine.",
+    description: "Palomitas medianas + refresco grande. El clásico del cine.",
     price: 5.9,
     image: "/comboclasico.png",
   },
@@ -141,8 +139,8 @@ export default function Menus() {
             <span className={estilos.planTag}>Familia</span>
             <h3>Plan Familiar</h3>
             <p>
-              Ven con los peques y aprovechad el{" "}
-              <strong>Combo Familiar</strong> para todos.
+              Ven con los peques y aprovechad el <strong>Combo Familiar</strong>{" "}
+              para todos.
             </p>
           </div>
         </div>
@@ -153,17 +151,17 @@ export default function Menus() {
         <div className={estilos.clubTexto}>
           <h2 className={estilos.clubTitulo}>💳 Menús y Club Cineverse</h2>
           <p>
-            Si formas parte del <strong>Club Cineverse</strong>, acumulas
-            puntos también con tus menús y snacks.
+            Si formas parte del <strong>Club Cineverse</strong>, acumulas puntos
+            también con tus menús y snacks.
           </p>
           <ul>
             <li>1 punto por cada euro gastado en combos y snacks.</li>
             <li>Canjea puntos por entradas y descuentos en productos.</li>
             <li>Promos exclusivas solo para miembros del club.</li>
           </ul>
-          <a href="/promotions" className={estilos.clubLink}>
+          <Link to="/promotions" className={estilos.clubLink}>
             Ver promociones disponibles
-          </a>
+          </Link>
         </div>
       </section>
 
